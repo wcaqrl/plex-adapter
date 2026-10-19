@@ -1,0 +1,62 @@
+version: 2
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: dist/cloud.lazycat.app.plex.lpk
+  target_arch: amd64
+
+source:
+  kind: oci
+  image: docker.io/plexinc/pms-docker
+  select:
+    strategy: tag
+    channel: stable
+    sort: numeric
+    # Plex uses FOUR numeric components followed by a build hash. Never sort
+    # lexically or discard the fourth component: 10896 is newer than 10861.
+    # Anchoring the whole tag excludes latest/public/beta and arch duplicates.
+    tag_regex: '^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+-[a-f0-9]+$'
+    version_regex: '^(?P<version>(?P<major>[0-9]+)\.(?P<minor>[0-9]+)\.(?P<patch>[0-9]+)\.[0-9]+)-[a-f0-9]+$'
+    # This is an application-version BASE, not the source identity. When only
+    # the fourth component changes, the Action allocates a new LPK patch.
+    version_template: '{major}.{minor}.{patch}'
+
+changelog:
+  mode: command
+  # Validate that the selected tag is the public Plex release before copying
+  # images. Notes from a different version are never substituted.
+  command: python3 -B scripts/plex-release.py changelog
+
+state:
+  file: .lazycat-action.lock.yml
+update:
+  strategy: publish
+  allow_downgrade: false
+build:
+  run_buildscript: false
+  prepare:
+    mode: command
+    context: scripts
+    # Tests run only for a new release in a real build, in the GitHub Runner.
+    # No Dockerfile is built: return exactly the digest that was just tested.
+    command: ./scripts/test-upgrade.sh
+    output_image: '{source_ref}@{source_revision}'
+images:
+  - id: plex
+    target: service
+    service: server
+    source: docker.io/plexinc/pms-docker
+    delivery:
+      mode: lazycat
+stores:
+  official:
+    enabled: true
+    skip_if_version_exists: true
+    continue_if_newer_version: true
+    create_if_missing: false
+    retry:
+      enabled: true
+      max_attempts: 5
+      initial_delay: 2s
+      max_delay: 30s

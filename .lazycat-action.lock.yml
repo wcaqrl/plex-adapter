@@ -1,0 +1,12 @@
+version: 2
+# An imported baseline is not a fabricated submission or a successful test.
+# The first real update records the selected upstream digest and review result.
+status: baseline
+source:
+  kind: oci
+  version: 1.42.2
+  ref: registry.lazycat.cloud/longixaoyi/plexinc/pms-docker:029895bccf1c28c9
+  revision: ''
+application:
+  package: cloud.lazycat.app.plex
+  version: 1.42.2

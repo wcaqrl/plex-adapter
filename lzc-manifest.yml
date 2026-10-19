@@ -1,0 +1,57 @@
+usage: |
+  使用自己的 Plex 账户登录并设置媒体库。
+  用户文稿位于 /home，外接存储设备位于 /media。
+  配置、媒体库数据库和转码目录沿用旧版持久化位置，升级前建议备份配置目录。
+  官网：https://www.plex.tv
+application:
+  subdomain: plex
+  routes:
+    - /=http://server.cloud.lazycat.app.plex.lzcapp:32400
+  multi_instance: true
+  gpu_accel: true
+  ingress:
+    - protocol: tcp
+      port: 32400
+      service: server
+    - protocol: tcp
+      port: 8324
+      service: server
+    - protocol: tcp
+      port: 32469
+      service: server
+    - protocol: udp
+      port: 1900
+      service: server
+    - protocol: udp
+      port: 32410
+      service: server
+    - protocol: udp
+      port: 32412
+      service: server
+    - protocol: udp
+      port: 32413
+      service: server
+    - protocol: udp
+      port: 32414
+      service: server
+services:
+  server:
+    # Approved store baseline. The Action replaces this only after upgrade tests
+    # and the official image-copy job have succeeded for the selected digest.
+    image: registry.lazycat.cloud/longixaoyi/plexinc/pms-docker:029895bccf1c28c9
+    binds:
+      - /lzcapp/run/mnt/home:/home
+      - /lzcapp/var/config:/config
+      - /lzcapp/var/transcode:/transcode
+      - /lzcapp/var/data:/data
+    setup_script: /lzcapp/pkg/content/bind.sh
+    environment:
+      # Official pms-docker uses PLEX_UID/GID; PUID/PGID and VERSION=docker
+      # belong to LinuxServer and do not configure the official image.
+      - PLEX_UID=0
+      - PLEX_GID=0
+      - CHANGE_CONFIG_DIR_OWNERSHIP=false
+      - TZ=Asia/Shanghai
+      - ADVERTISE_IP=https://{{ .S.AppDomain }}
+ext_config:
+  enable_media_access: true
