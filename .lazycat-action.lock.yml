@@ -8,7 +8,7 @@ source:
     image: docker.io/plexinc/pms-docker
     application_version: 1.43.4
 fingerprint: sha256:705fb7f86d7e9a201632d7bf2e1acdc9bb6e13b741a3691c0234d366a70a05bc
-status: packaged
+status: submitted
 images:
     - id: plex
       source_ref: docker.io/plexinc/pms-docker:1.43.4.10903-e5521bd8c@sha256:dbb879bf58c3fc56635f21ac48c32aa6853aaa23d4a57b102033b6dc6d2d9cee
@@ -42,3 +42,20 @@ application:
         (Shield) Tonemapping was being applied incorrectly (PM-5748)
         (Tuner) The Plex Tuner Service can crash during startup and shutdown (PM-5627)
 packaged_at: 2026-10-19T08:02:39.213016055Z
+reviews:
+    - id: 20831
+      source:
+        kind: oci
+        version: 1.43.4.10903
+        ref: docker.io/plexinc/pms-docker:1.43.4.10903-e5521bd8c
+        revision: sha256:dbb879bf58c3fc56635f21ac48c32aa6853aaa23d4a57b102033b6dc6d2d9cee
+        tag: 1.43.4.10903-e5521bd8c
+        image: docker.io/plexinc/pms-docker
+        application_version: 1.43.4
+      fingerprint: sha256:705fb7f86d7e9a201632d7bf2e1acdc9bb6e13b741a3691c0234d366a70a05bc
+      application_version: 1.43.4
+      lpk_sha256: 937c1f7b7fcde7ed53f214d3d79dee2d9c71f7732f0f995fc3d75447012da844
+      status: waiting
+      created_at: 2026-10-19T08:02:59.143Z
+      submitted_at: 2026-10-19T08:02:59.28410665Z
+      checked_at: 2026-10-19T08:02:59.284107331Z
