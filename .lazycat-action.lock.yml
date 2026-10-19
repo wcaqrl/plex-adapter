@@ -1,12 +1,44 @@
 version: 2
-# An imported baseline is not a fabricated submission or a successful test.
-# The first real update records the selected upstream digest and review result.
-status: baseline
 source:
-  kind: oci
-  version: 1.42.2
-  ref: registry.lazycat.cloud/longixaoyi/plexinc/pms-docker:029895bccf1c28c9
-  revision: ''
+    kind: oci
+    version: 1.43.4.10903
+    ref: docker.io/plexinc/pms-docker:1.43.4.10903-e5521bd8c
+    revision: sha256:dbb879bf58c3fc56635f21ac48c32aa6853aaa23d4a57b102033b6dc6d2d9cee
+    tag: 1.43.4.10903-e5521bd8c
+    image: docker.io/plexinc/pms-docker
+    application_version: 1.43.4
+fingerprint: sha256:705fb7f86d7e9a201632d7bf2e1acdc9bb6e13b741a3691c0234d366a70a05bc
+status: packaged
+images:
+    - id: plex
+      source_ref: docker.io/plexinc/pms-docker:1.43.4.10903-e5521bd8c@sha256:dbb879bf58c3fc56635f21ac48c32aa6853aaa23d4a57b102033b6dc6d2d9cee
+      source_digest: sha256:dbb879bf58c3fc56635f21ac48c32aa6853aaa23d4a57b102033b6dc6d2d9cee
+      runtime_ref: registry.lazycat.cloud/peter/plexinc/pms-docker:0fd3c9808a2ffb1c
 application:
-  package: cloud.lazycat.app.plex
-  version: 1.42.2
+    package: cloud.lazycat.app.plex
+    version: 1.43.4
+    lpk_sha256: 937c1f7b7fcde7ed53f214d3d79dee2d9c71f7732f0f995fc3d75447012da844
+    changelog: |-
+        Plex Media Server 1.43.4.10903-e5521bd8c
+
+        ## Added
+        (GPU) Added support for HEVC transcode on devices that only support 8 bit HEVC encoding (PM-5595)
+        (Library) Add library filter for HDR10+ media (PM-5617)
+        (Metadata) Add HDR10+ metadata detection (PM-5355)
+        (Transcoding) Added support for HW Tonemapping on MacOS (PM-4883)
+        (Transcoding) Added support for HW burn in of image based subtitle formats (such as PGS) on MacOS (PM-4882)
+        (Transcoding) Added support for HW decoding AV1 videos on MacOS (M3 and newer) (PM-4884)
+
+        ## Fixed
+        (Crash) Certain malformed webp images can crash the server (PM-5565)
+        (Crash) Handling some POST requests could crash the server (PM-5592)
+        (Crash) In rare instances, a timeline request can crash the server (PM-5590)
+        (Database) Fixed a corrupt search index that made the database fail its integrity check and blocked backups (PM-5868)
+        (HTTP) The server could crash after making certain HTTP requests (PM-5964)
+        (Metadata) In rare instances, triggering an item rematch could crash the server (PM-5591)
+        (Metadata) Reject invalid custom provider prefixes before they get added (PM-5275)
+        (Metadata) Year value stored in TYER id3 tags would not be read (PM-5532)
+        (Search) Fixed albums, tracks and episodes whose parent item was missing being left out of search results (PM-5868)
+        (Shield) Tonemapping was being applied incorrectly (PM-5748)
+        (Tuner) The Plex Tuner Service can crash during startup and shutdown (PM-5627)
+packaged_at: 2026-10-19T08:02:39.213016055Z
