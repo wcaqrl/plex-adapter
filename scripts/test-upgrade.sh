@@ -31,6 +31,12 @@ on_error() {
 trap on_error ERR
 
 mkdir -p "$TEST_ROOT/config" "$TEST_ROOT/transcode" "$TEST_ROOT/data" "$TEST_ROOT/home"
+# Plex initializes /config ownership inside the container. Seed host-side
+# fixtures before that happens; never relax permissions on application data
+# just to let the unprivileged GitHub runner write a test marker afterward.
+printf 'plex-upgrade-data-marker\n' >"$TEST_ROOT/data/upgrade-marker.txt"
+printf 'plex-upgrade-home-marker\n' >"$TEST_ROOT/home/upgrade-marker.txt"
+printf 'plex-upgrade-config-marker\n' >"$TEST_ROOT/config/upgrade-marker.txt"
 
 start_plex() {
   local image="$1" port deadline
@@ -94,9 +100,6 @@ plex_sqlite() {
 }
 [[ "$(plex_sqlite "$OLD_IMAGE" 'PRAGMA quick_check;')" == ok ]]
 plex_sqlite "$OLD_IMAGE" "CREATE TABLE lazycat_upgrade_marker (value TEXT NOT NULL); INSERT INTO lazycat_upgrade_marker VALUES ('created-on-store-baseline');"
-printf 'plex-upgrade-data-marker\n' >"$TEST_ROOT/data/upgrade-marker.txt"
-printf 'plex-upgrade-home-marker\n' >"$TEST_ROOT/home/upgrade-marker.txt"
-printf 'plex-upgrade-config-marker\n' >"$TEST_ROOT/config/upgrade-marker.txt"
 
 start_plex "$NEW_IMAGE" >/dev/null
 [[ "$(server_identity machineIdentifier)" == "$before_id" ]]
