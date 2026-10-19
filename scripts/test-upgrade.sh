@@ -8,7 +8,12 @@ set -Eeuo pipefail
 : "${LAZYCAT_SOURCE_VERSION:?The complete upstream numeric version is required}"
 [[ "$LAZYCAT_SOURCE_REVISION" =~ ^sha256:[a-f0-9]{64}$ ]]
 NEW_IMAGE="${LAZYCAT_SOURCE_REF}@${LAZYCAT_SOURCE_REVISION}"
-OLD_IMAGE="${OLD_IMAGE:-registry.lazycat.cloud/longixaoyi/plexinc/pms-docker:029895bccf1c28c9}"
+# The store LPK is named 1.42.2, but its image metadata identifies Plex
+# 1.42.1.10060-4e8b05daf. Its cloud.lazycat.image.origin_hash matches this
+# official linux/amd64 manifest exactly. Pull that immutable upstream image:
+# GitHub-hosted runners cannot reliably pull the store's registry mirror
+# anonymously, and the developer API PAT is not a Docker registry credential.
+OLD_IMAGE="${OLD_IMAGE:-docker.io/plexinc/pms-docker:1.42.1.10060-4e8b05daf@sha256:45601a2d6fc1c4da7cff5832fc5315cff198c29bfbaea3604c2646c9e65280e5}"
 PLATFORM="${LAZYCAT_TARGET_PLATFORM:-linux/amd64}"
 TEST_ROOT="$(mktemp -d -t plex-upgrade.XXXXXXXX)"
 CONTAINER_NAME="plex-upgrade-${GITHUB_RUN_ID:-local}-${GITHUB_RUN_ATTEMPT:-1}-$$"

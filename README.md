@@ -34,7 +34,7 @@
 
 1. 每天北京时间 **12:37** 由 GitHub Runner 定时检查；调度可能延迟。
 2. 发现新版本后确认公开版本并取得准确日志。
-3. 在 Runner 的独立临时目录中运行商店旧镜像，初始化真实数据库，然后升级到
+3. 在 Runner 的独立临时目录中运行商店旧镜像对应的官方原始镜像，初始化真实数据库，然后升级到
    本次选中的不可变镜像摘要，验证数据库完整性、数据库标记、服务器标识、网页、
    持久文件以及容器重建。验证失败不转存、不送审。
 4. 调用官方镜像转存接口，等待完成后使用返回的 `registry.lazycat.cloud` 地址。
@@ -61,6 +61,13 @@ GitHub Actions 推送到默认分支；分支保护策略也必须允许记录�
 初始配置和状态来自商店 `1.42.2` 包：
 <https://lzc-download-1301583638.cos.ap-guangzhou.myqcloud.com/appstore/lpks/pkgs/cloud.lazycat.app.plex/cloud.lazycat.app.plex-v1.42.2.lpk>。
 初始状态为 `baseline`，不代表本适配器已经提交或测试通过。
+
+商店包号 `1.42.2` 与其中 Plex 的实际版本并不相同：旧镜像的
+`org.opencontainers.image.version` 为 `1.42.1.10060-4e8b05daf`。
+升级测试使用对应的 Docker Hub 官方镜像，固定 linux/amd64 摘要为
+`sha256:45601a2d6fc1c4da7cff5832fc5315cff198c29bfbaea3604c2646c9e65280e5`，
+与商店镜像的 `cloud.lazycat.image.origin_hash` 一致。这样无需向 GitHub Runner
+提供懒猫镜像仓库登录凭据，也不会误用另一个上游版本作为升级基线。
 
 ## 数据兼容
 
