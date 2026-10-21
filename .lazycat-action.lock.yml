@@ -8,7 +8,7 @@ source:
     image: docker.io/plexinc/pms-docker
     application_version: 1.43.5
 fingerprint: sha256:ed3f47f98519b62bbd37638cba4aeb92e77a39f9a2c858e113ecd510d4548411
-status: packaged
+status: submitted
 images:
     - id: plex
       source_ref: docker.io/plexinc/pms-docker:1.43.5.11029-6bf8af3f0@sha256:066877418cd11b59edbf56ee31848ee96381b9860eccea94d6233ebf7ece15cf
@@ -59,3 +59,19 @@ reviews:
       created_at: 2026-10-19T08:02:59.143Z
       submitted_at: 2026-10-19T08:02:59.28410665Z
       checked_at: 2026-10-20T09:35:49.703491121Z
+    - id: 21011
+      source:
+        kind: oci
+        version: 1.43.5.11029
+        ref: docker.io/plexinc/pms-docker:1.43.5.11029-6bf8af3f0
+        revision: sha256:066877418cd11b59edbf56ee31848ee96381b9860eccea94d6233ebf7ece15cf
+        tag: 1.43.5.11029-6bf8af3f0
+        image: docker.io/plexinc/pms-docker
+        application_version: 1.43.5
+      fingerprint: sha256:ed3f47f98519b62bbd37638cba4aeb92e77a39f9a2c858e113ecd510d4548411
+      application_version: 1.43.5
+      lpk_sha256: 47bb5c770d366c330f42c02b8ab30e726f77d1e97b1c0ecca649dc6e20fc2afa
+      status: waiting
+      created_at: 2026-10-21T09:35:15.858Z
+      submitted_at: 2026-10-21T09:35:15.993830071Z
+      checked_at: 2026-10-21T09:35:15.993830442Z
