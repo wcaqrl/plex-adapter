@@ -1,30 +1,31 @@
 version: 2
 source:
     kind: oci
-    version: 1.43.5.11029
-    ref: docker.io/plexinc/pms-docker:1.43.5.11029-6bf8af3f0
-    revision: sha256:066877418cd11b59edbf56ee31848ee96381b9860eccea94d6233ebf7ece15cf
-    tag: 1.43.5.11029-6bf8af3f0
+    version: 1.43.5.11079
+    ref: docker.io/plexinc/pms-docker:1.43.5.11079-b3b13e506
+    revision: sha256:32dead43c01e8ff6189504ff0d048b16cf084a1dc37d8906fef8f3537d067e4d
+    tag: 1.43.5.11079-b3b13e506
     image: docker.io/plexinc/pms-docker
     application_version: 1.43.5
-fingerprint: sha256:ed3f47f98519b62bbd37638cba4aeb92e77a39f9a2c858e113ecd510d4548411
-status: submitted
+fingerprint: sha256:1a995cb4b8e8ad9739a26b8734d514caa2aaf534cbe0a6a6459c6d5d1e20ddca
+status: packaged
 images:
     - id: plex
-      source_ref: docker.io/plexinc/pms-docker:1.43.5.11029-6bf8af3f0@sha256:066877418cd11b59edbf56ee31848ee96381b9860eccea94d6233ebf7ece15cf
-      source_digest: sha256:066877418cd11b59edbf56ee31848ee96381b9860eccea94d6233ebf7ece15cf
-      runtime_ref: registry.lazycat.cloud/peter/plexinc/pms-docker:d847474f81a073ea
+      source_ref: docker.io/plexinc/pms-docker:1.43.5.11079-b3b13e506@sha256:32dead43c01e8ff6189504ff0d048b16cf084a1dc37d8906fef8f3537d067e4d
+      source_digest: sha256:32dead43c01e8ff6189504ff0d048b16cf084a1dc37d8906fef8f3537d067e4d
+      runtime_ref: registry.lazycat.cloud/peter/plexinc/pms-docker:ae59d9b96f67162e
 application:
     package: cloud.lazycat.app.plex
-    version: 1.43.5
-    lpk_sha256: 47bb5c770d366c330f42c02b8ab30e726f77d1e97b1c0ecca649dc6e20fc2afa
+    version: 1.43.6
+    lpk_sha256: 1e7662cf874889ae71897eb3f7f295e8a760acc8204f30583fb15111d54db219
     changelog: |-
-        Plex Media Server 1.43.5.11029-6bf8af3f0
+        Plex Media Server 1.43.5.11079-b3b13e506
 
         ## Added
         (Metadata) Added support for reading artist and album metadata from NFO files in music libraries (PM-6153)
         (Network) Ignore manually specified public port for IPv6 connections (PM-5364)
         (Network) Send subnet information to plex.tv so IPv6 and non-private local connections are detected correctly (PM-5364)
+        (Security) The server no longer trusts the eMudhra certificate authority roots whose intermediate signing keys were compromised (PM-6479)
         Updated Web to 4.162.1
 
         ## Fixed
@@ -39,9 +40,10 @@ application:
         (Security) Fixed request locality when the server's local network interface is unknown (PM-6183)
         (Security) Increase security on requests arriving through a proxy (PM-6201)
         (Thumbnails) Video preview thumbnail generation on Windows no longer leaves temporary index files behind; bundle cleanup removes existing ones (PM-3536)
+        (Transcoder) Photos could fail to load for clients connecting through a reverse proxy (PM-6476)
         (Transcoder) The server could crash while building an HLS playlist for media without a video stream (PM-6226)
         (UltraBlur) Colors were computed from the thumbnail when an item had no artwork of its own, so episodes and seasons did not match the background shown by clients (PM-4282)
-packaged_at: 2026-10-21T09:34:58.445603809Z
+packaged_at: 2026-10-26T10:28:34.182080294Z
 reviews:
     - id: 20831
       source:

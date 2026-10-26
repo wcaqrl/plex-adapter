@@ -1,6 +1,6 @@
 package: cloud.lazycat.app.plex
 # Store baseline; the Action allocates the next version only when packaging.
-version: 1.43.5
+version: 1.43.6
 name: Plex
 description: Plex 媒体服务器，集中管理并播放自己的电影、电视剧、音乐和照片。
 homepage: https://www.plex.tv

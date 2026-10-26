@@ -38,8 +38,8 @@ services:
   server:
     # Approved store baseline. The Action replaces this only after upgrade tests
     # and the official image-copy job have succeeded for the selected digest.
-    # upstream: docker.io/plexinc/pms-docker:1.43.5.11029-6bf8af3f0@sha256:066877418cd11b59edbf56ee31848ee96381b9860eccea94d6233ebf7ece15cf
-    image: registry.lazycat.cloud/peter/plexinc/pms-docker:d847474f81a073ea
+    # upstream: docker.io/plexinc/pms-docker:1.43.5.11079-b3b13e506@sha256:32dead43c01e8ff6189504ff0d048b16cf084a1dc37d8906fef8f3537d067e4d
+    image: registry.lazycat.cloud/peter/plexinc/pms-docker:ae59d9b96f67162e
     binds:
       - /lzcapp/run/mnt/home:/home
       - /lzcapp/var/config:/config
