@@ -52,7 +52,7 @@ jobs:
           set -euo pipefail
           git push --dry-run origin "HEAD:${GITHUB_REF_NAME}"
           if [[ -z "${LZC_API_TOKEN}" ]]; then
-            echo '::error::Add LZC_API_TOKEN in this adapter repository: Settings → Secrets and variables → Actions.'
+            echo '::error::Authorize the organization LZC_API_TOKEN secret for this repository.'
             exit 1
           fi
           response_file="${RUNNER_TEMP}/plex-review-access.json"
@@ -72,7 +72,7 @@ jobs:
 
   update:
     needs: validate
-    uses: wcaqrl/lazycat-action/.github/workflows/lazycat.yml@v1
+    uses: lazycat-adapter/lazycat-action/.github/workflows/lazycat.yml@v1
     with:
       config: lazycat-action.yml
       operation: auto

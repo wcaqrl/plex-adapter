@@ -1,7 +1,7 @@
 # Plex → 懒猫应用商店
 
 将 Plex 官方 `plexinc/pms-docker` 的公开正式版本适配为懒猫应用
-`cloud.lazycat.app.plex`，复用 `wcaqrl/lazycat-action@v1`。
+`cloud.lazycat.app.plex`，复用 `lazycat-adapter/lazycat-action@v1`。
 
 官网：<https://www.plex.tv>。本适配器部署个人 Plex Media Server；官网的公开网页
 不是镜像监控源，也不会被打包为应用的入口。
@@ -52,8 +52,7 @@
 本配置需要包含四段数字版本支持的公共 Action；发布该实现后应由其发布流程更新
 `v1`，本仓库继续引用 `@v1`。发布前旧 `v1` 无法识别新增配置字段。
 
-在本仓库 **Settings → Secrets and variables → Actions → Repository secrets**
-设置 `LZC_API_TOKEN`，其开发者必须拥有 `cloud.lazycat.app.plex` 的更新权限。
+在 `lazycat-adapter` 组织的 Actions secrets 中授权本仓库使用 `LZC_API_TOKEN`，其开发者必须拥有 `cloud.lazycat.app.plex` 的更新权限。
 本适配器固定使用懒猫官方生产应用商店。工作流需要 `contents: write`，并需允许
 GitHub Actions 推送到默认分支；分支保护策略也必须允许记录打包、送审状态。
 正式运行在转存前会验证 PAT 的应用权限及 Git 写权限。
